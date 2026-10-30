@@ -26,15 +26,14 @@ umi.use(signerIdentity(signer));
 
 (async () => {
   try {
-    //chanege image path to your image path
-    const image = await readFile("file-path");
-
-    //change the image name and mime type
-    // const file =
-
-    // const [myUri] =
-    // console.log("Your image URI: ", myUri);
+    const image = await readFile("nate.png");
+    const file = createGenericFile(image, "nate.png", {
+      contentType: "image/png",
+    });
+    const [myUri] = await umi.uploader.upload([file]);
+    console.log("Your image URI:", myUri);
   } catch (error) {
-    console.log(error);
+    console.error("Image upload failed:", error);
+    process.exitCode = 1;
   }
 })();
